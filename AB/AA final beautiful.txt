@@ -1,0 +1,195 @@
+=IF(
+    COUNTBLANK(
+        $B12
+    ) = 1,
+    $Z11,
+    IF(
+        COUNTBLANK(
+            $D12
+        ) = 1,
+        "",
+        CONCATENATE(
+            ARRAYFORMULA(
+                VLOOKUP(
+                    SPLIT(
+                        $D12,
+                        "/"
+                    ),
+                    FData!$D$3:$E$57,
+                    2
+                )
+            )
+        )
+    ) &
+    IF(
+        COUNTBLANK(
+            $L12
+        ) = 1,
+        "",
+        ARRAYFORMULA(
+            INDEX(
+                FData!$B$3:$B$7,
+                IFERROR(
+                    MATCH(
+                        TRUE,
+                        REGEXMATCH(
+                            $L12,
+                            FData!$A$3:$A$6
+                        ),
+                        0
+                    ),
+                    5
+                )
+            )
+        )
+    ) &
+    IF(
+        COUNTBLANK(
+            $T12
+        ) = 1,
+        "",
+        "needlepoint-"
+    ) &
+    IF(
+        COUNTBLANK(
+            $J12
+        ) = 1,
+        "",
+        ARRAYFORMULA(
+            INDEX(
+                FData!$M$3:$M$6,
+                MATCH(
+                    TRUE,
+                    REGEXMATCH(
+                        $J12,
+                        FData!$L$3:$L$6
+                    ),
+                    0
+                )
+            )
+        )
+    ) &
+    IF(
+        COUNTBLANK(
+            $C12
+        ) = 1,
+        "",
+        CONCATENATE(
+            ARRAYFORMULA(
+                VLOOKUP(
+                    SPLIT(
+                        $C12,
+                        "/"
+                    ),
+                    FData!$G$3:$I$44,
+                    IF(
+                        COUNTBLANK(
+                            $U12
+                        ) = 1,
+                        2,
+                        3
+                    ),
+                    FALSE
+                )
+            )
+        )
+    ) &
+    LOWER(
+        IF(
+            COUNTBLANK(
+                $L12
+            ) = 1,
+            "",
+            IF(
+                REGEXMATCH(
+                    $L12,
+                    "Huari|Inca|Nazca"
+                ),
+                "",
+                REGEXREPLACE(
+                    $L12,
+                    "'|/|\s",
+                    "-"
+                ) & "-"
+            )
+        ) &
+        IF(
+            COUNTBLANK(
+                $M12
+            ) = 1,
+            "",
+            IF(
+                OR(
+                    COUNTBLANK(
+                        $L12
+                    ) = 1,
+                    REGEXMATCH(
+                        $L12,
+                        "Huari|Inca|Nazca"
+                    )
+                ),
+                REGEXREPLACE(
+                    $M12,
+                    "'|/|\s",
+                    "-"
+                ) & "-",
+                ""
+            )
+        ) &
+        IF(
+            COUNTBLANK(
+                $N12
+            ) = 1,
+            "",
+            REGEXREPLACE(
+                $N12,
+                "'|/|\s",
+                "-"
+            ) & "-"
+        ) &
+        IF(
+            COUNTBLANK(
+                $P12
+            ) = 1,
+            "",
+            REGEXREPLACE(
+                $P12,
+                "'|/|\s",
+                "-"
+            ) & "-"
+        ) &
+        IF(
+            COUNTBLANK(
+                $Q12
+            ) = 1,
+            "",
+            REGEXREPLACE(
+                $Q12,
+                "'|/|\s",
+                "-"
+            ) & "-"
+        ) &
+        IF(
+            COUNTBLANK(
+                $R12
+            ) = 1,
+            "",
+            REGEXREPLACE(
+                $R12,
+                "\sand\s|'|/|\s",
+                "-"
+            ) & "-"
+        ) &
+        IF(
+            COUNTBLANK(
+                $S12
+            ) = 1,
+            "",
+            REGEXREPLACE(
+                $S12,
+                "'|/|\s",
+                "-"
+            ) & "-"
+        )
+    ) & $A12
+)
